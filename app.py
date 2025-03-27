@@ -13,7 +13,7 @@ def home():
     return render_template('home.html')
 
 # Creating a predict api
-@app.route('/predict', methods=['POST'])
+@app.route('/predict_api', methods=['POST'])
 def predict():
     # Get the data from the data key in the request
     # Assuming the data is sent as JSON in the request body
@@ -31,6 +31,16 @@ def predict():
     print(prediction)
     # Return the prediction as a JSON response
     return jsonify({'prediction': prediction[0]})
+
+
+@app.route('/predict', methods=['POST'])
+def predict_form():
+    data = [float(x) for x in request.form.values()]
+    final_input = scalar.transform(np.array(data).reshape(1, -1))
+    print(final_input)
+    prediction = regmodel.predict(final_input)
+    print(prediction)
+    return render_template("home.html", prediction_text="The predicted value is {}".format(prediction[0]))
 
 
 if __name__ == '__main__':
