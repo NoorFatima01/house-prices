@@ -90,7 +90,7 @@
       <div class="login">
         <h1>Boston House Price Prediction</h1>
 
-        <form action="http://127.0.0.1:5000/predict" method="POST">
+        <form action="/predict" method="POST">
           <input
             type="text"
             name="CRIM"
@@ -173,7 +173,9 @@
           <button type="submit">Predict House Price</button>
         </form>
 
-        <div class="prediction-result">{{prediction_text}}</div>
+        {% if prediction_text %}
+        <div class="prediction-result">{{ prediction_text }}</div>
+        {% endif %}
       </div>
     </div>
   </body>
