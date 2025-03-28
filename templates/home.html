@@ -1,61 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>ML API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boston House Price Prediction</title>
     <link
-      href="https://fonts.googleapis.com/css?family=Pacifico"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
       rel="stylesheet"
-      type="text/css"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Arimo"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Hind:300"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
-      rel="stylesheet"
-      type="text/css"
-    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f4f6f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+        margin: 20px;
+      }
+      .login {
+        text-align: center;
+      }
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      form {
+        display: grid;
+        gap: 15px;
+      }
+      input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+      input:focus {
+        outline: none;
+        border-color: #3498db;
+      }
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        margin-top: 15px;
+      }
+      button:hover {
+        background-color: #2980b9;
+      }
+      button:active {
+        transform: scale(0.98);
+      }
+      .prediction-result {
+        margin-top: 20px;
+        text-align: center;
+        padding: 15px;
+        background-color: #f1f8ff;
+        border-radius: 8px;
+        color: #2c3e50;
+      }
+    </style>
   </head>
-
   <body>
-    <div class="login">
-      <h1>Boston House Price Prediction</h1>
+    <div class="container">
+      <div class="login">
+        <h1>Boston House Price Prediction</h1>
 
-      <!-- Main Input For Receiving Query to our ML -->
-      <form action="http://127.0.0.1:5000/predict" method="POST">
-        <input type="text" name="CRIM" placeholder="CRIM" required /><br />
-        <input type="text" name="ZN" placeholder="ZN" required /><br />
-        <input type="text" name="INDUS" placeholder="INDUS" required /><br />
-        <input type="text" name="CHAS" placeholder="CHAS" required /><br />
-        <input type="text" name="NOX" placeholder="NOX" required /><br />
-        <input type="text" name="RM" placeholder="RM" required /><br />
-        <input type="text" name="AGE" placeholder="AGE" required /><br />
-        <input type="text" name="DIS" placeholder="DIS" required /><br />
-        <input type="text" name="RAD" placeholder="RAD" required /><br />
-        <input type="text" name="TAX" placeholder="TAX" required /><br />
-        <input
-          type="text"
-          name="PTRATIO"
-          placeholder="PTRATIO"
-          required
-        /><br />
-        <input type="text" name="B" placeholder="B" required /><br />
-        <input type="text" name="LSTAT" placeholder="LSTAT" required /><br />
+        <form action="http://127.0.0.1:5000/predict" method="POST">
+          <input
+            type="text"
+            name="CRIM"
+            placeholder="Crime Rate per Capita"
+            required
+          />
+          <input
+            type="text"
+            name="ZN"
+            placeholder="Proportion of Residential Land Zoned"
+            required
+          />
+          <input
+            type="text"
+            name="INDUS"
+            placeholder="Proportion of Non-Retail Business Acres"
+            required
+          />
+          <input
+            type="text"
+            name="CHAS"
+            placeholder="Charles River Proximity (1/0)"
+            required
+          />
+          <input
+            type="text"
+            name="NOX"
+            placeholder="Nitric Oxide Concentration"
+            required
+          />
+          <input
+            type="text"
+            name="RM"
+            placeholder="Average Number of Rooms"
+            required
+          />
+          <input
+            type="text"
+            name="AGE"
+            placeholder="Proportion of Owner-Occupied Units Built Before 1940"
+            required
+          />
+          <input
+            type="text"
+            name="DIS"
+            placeholder="Weighted Distance to Employment Centers"
+            required
+          />
+          <input
+            type="text"
+            name="RAD"
+            placeholder="Accessibility to Radial Highways"
+            required
+          />
+          <input
+            type="text"
+            name="TAX"
+            placeholder="Property Tax Rate"
+            required
+          />
+          <input
+            type="text"
+            name="PTRATIO"
+            placeholder="Pupil-Teacher Ratio"
+            required
+          />
+          <input
+            type="text"
+            name="B"
+            placeholder="Proportion of Black Population"
+            required
+          />
+          <input
+            type="text"
+            name="LSTAT"
+            placeholder="Percentage of Lower Status Population"
+            required
+          />
 
-        <button type="submit">Predict</button>
-      </form>
+          <button type="submit">Predict House Price</button>
+        </form>
 
-      <br />
-      <br />
+        <div class="prediction-result">{{prediction_text}}</div>
+      </div>
     </div>
-    {{prediction_text}}
   </body>
 </html>
