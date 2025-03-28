@@ -4,4 +4,4 @@ numpy
 matplotlib
 seaborn
 gunicorn
-scikit-learn==1.5.1
+scikit-learn==1.6.1
