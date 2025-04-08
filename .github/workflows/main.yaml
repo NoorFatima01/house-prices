@@ -1,36 +1,21 @@
-name: Deploy to Heroku
+name: Deploy to Fly.io
 
-# Run workflow on every push to main branch.
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
-# Your workflows jobs.
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      # Check out your repository
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Install Heroku CLI
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+      - name: Set up Fly CLI
+        uses: superfly/flyctl-actions/setup-flyctl@master
 
-      # Login to Heroku
-      - name: Heroku Login
+      - name: Deploy to Fly.io
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku container:login
-
-      # Build and push Docker container
-      - name: Build, Push and Release Docker Container
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: |
-          heroku container:push web -a $HEROKU_APP_NAME
-          heroku container:release web -a $HEROKU_APP_NAME
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: flyctl deploy --remote-only
